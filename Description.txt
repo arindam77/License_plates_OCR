@@ -1,0 +1,36 @@
+Approach followed: 
+
+Libraries used:
+1.opencv
+2.pytesseract
+3.imutils
+4.pandas
+
+Firstly, converted images to grayscale and Gaussian blur.
+
+Used Otsu's threshold to get a binary image.
+
+Contours were identified and sorted from left-to-right to maintain order.
+
+Iterated through contours and filter for the bottom two rectangles.
+
+Extracted Region of Interest (ROI) and performed OCR.
+
+After converting to grayscale and Gaussian blurring, we use Otsu's threshold to get a binary image. 
+
+We find contours then sort the contours using imutils.contours.sort_contours() with the left-to-right parameter. This step keeps the contours in order. 
+
+From here we iterate through the contours and perform contour filtering using these three filtering conditions:
+
+1. The contour must be larger than some specified threshold area (3000)
+2. The width must be larger than the height
+3. The center of each ROI must be in the bottom half of the image. We find the center of each contour and compare it to where it is located on the image.
+
+If a ROI passes these filtering conditions, we extract the ROI using numpy slicing and then send it into Pytesseract. 
+
+Then we send each individual ROI into Pytesseract one at a time to construct the license plate string.
+
+
+
+
+
